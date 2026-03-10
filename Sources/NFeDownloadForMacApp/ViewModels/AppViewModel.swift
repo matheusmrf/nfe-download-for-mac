@@ -36,6 +36,16 @@ final class AppViewModel {
         URL(fileURLWithPath: settings.sendDirectory, isDirectory: true)
     }
 
+    var sendableXMLFiles: [URL] {
+        guard FileManager.default.fileExists(atPath: sendDirectoryURL.path) else {
+            return []
+        }
+
+        return (try? FileManager.default.contentsOfDirectory(at: sendDirectoryURL, includingPropertiesForKeys: nil))?
+            .filter { $0.pathExtension.lowercased() == "xml" }
+            .sorted { $0.lastPathComponent.localizedCaseInsensitiveCompare($1.lastPathComponent) == .orderedAscending } ?? []
+    }
+
     func pickDownloadDirectory() {
         if let path = FolderPicker.pickDirectory(startingAt: settings.downloadDirectory) {
             settings.downloadDirectory = path
@@ -47,6 +57,61 @@ final class AppViewModel {
         if let path = FolderPicker.pickDirectory(startingAt: settings.sendDirectory) {
             settings.sendDirectory = path
             appendLog("Pasta de envio definida para \(path)", level: .info)
+        }
+    }
+
+    func updateUsername(_ value: String) {
+        settings.username = value
+    }
+
+    func updatePassword(_ value: String) {
+        settings.password = value
+    }
+
+    func updateDownloadURL(_ value: String) {
+        settings.downloadURL = value
+    }
+
+    func updateNFESendURL(_ value: String) {
+        settings.nfeSendURL = value
+    }
+
+    func updateCTESendURL(_ value: String) {
+        settings.cteSendURL = value
+    }
+
+    func updateDownloadDirectory(_ value: String) {
+        settings.downloadDirectory = value
+    }
+
+    func updateSendDirectory(_ value: String) {
+        settings.sendDirectory = value
+    }
+
+    func appendDownloadKeys(from content: String) {
+        let cleaned = content
+            .replacingOccurrences(of: "\r\n", with: "\n")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+
+        guard !cleaned.isEmpty else { return }
+
+        if downloadKeysText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            downloadKeysText = cleaned
+        } else {
+            downloadKeysText += "\n" + cleaned
+        }
+
+        appendLog("Chaves importadas para a área de download.", level: .info)
+    }
+
+    func importKeysFromFile() {
+        guard let url = FolderPicker.pickTextFile() else { return }
+
+        do {
+            let content = try String(contentsOf: url, encoding: .utf8)
+            appendDownloadKeys(from: content)
+        } catch {
+            appendLog("Falha ao importar arquivo de chaves: \(error.localizedDescription)", level: .error)
         }
     }
 
@@ -111,26 +176,11 @@ final class AppViewModel {
     }
 
     func sendAll() async {
-        let directory = sendDirectoryURL
+        let xmlFiles = sendableXMLFiles
         let fileManager = FileManager.default
 
-        guard fileManager.fileExists(atPath: directory.path) else {
-            appendLog("A pasta de envio não existe: \(directory.path)", level: .warning)
-            return
-        }
-
-        let xmlFiles: [URL]
-        do {
-            xmlFiles = try fileManager.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil)
-                .filter { $0.pathExtension.lowercased() == "xml" }
-                .sorted { $0.lastPathComponent.localizedCaseInsensitiveCompare($1.lastPathComponent) == .orderedAscending }
-        } catch {
-            appendLog("Falha ao listar arquivos da pasta de envio: \(error.localizedDescription)", level: .error)
-            return
-        }
-
         guard !xmlFiles.isEmpty else {
-            appendLog("Nenhum arquivo XML encontrado em \(directory.path).", level: .warning)
+            appendLog("Nenhum arquivo XML encontrado em \(sendDirectoryURL.path).", level: .warning)
             return
         }
 
@@ -201,7 +251,6 @@ actor AsyncSemaphore {
         }
     }
 }
-
 
 actor DownloadStats {
     private var success = 0

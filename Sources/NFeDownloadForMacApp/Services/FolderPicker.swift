@@ -18,4 +18,16 @@ enum FolderPicker {
 
         return panel.runModal() == .OK ? panel.url?.path : nil
     }
+
+    @MainActor
+    static func pickTextFile() -> URL? {
+        let panel = NSOpenPanel()
+        panel.canChooseDirectories = false
+        panel.canChooseFiles = true
+        panel.allowsMultipleSelection = false
+        panel.allowedContentTypes = [.plainText, .commaSeparatedText, .text]
+        panel.prompt = "Importar"
+        panel.message = "Escolha um arquivo de texto com chaves de acesso."
+        return panel.runModal() == .OK ? panel.url : nil
+    }
 }
