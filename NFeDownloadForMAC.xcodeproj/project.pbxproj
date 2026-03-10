@@ -1,0 +1,388 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1162F54B6EAA15CF510D3B79 /* OperationLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F92B53EEFAD6DA8E4E65AD9 /* OperationLog.swift */; };
+		1643147BFDE881A205AA0745 /* XMLResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CB132918FB121D8D8C1B68 /* XMLResponseParser.swift */; };
+		30336D2F3708DE347E728DD9 /* AppSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE745872296366628AF1C85 /* AppSection.swift */; };
+		3D1372D2A00E8C76986BE247 /* ServiceKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA4319511407D955C5ACFD2 /* ServiceKind.swift */; };
+		3F1C8B384B603F630CC906C8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FC081C81A71F255C9F8900 /* ContentView.swift */; };
+		45BE12601C2DB7720373392B /* NFeDownloadForMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3F268BC9EDA67369F1CF8D /* NFeDownloadForMacApp.swift */; };
+		5A9BE93E9B528E2549153F8C /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C94DAE72CCA56DD691A9F0 /* AppSettings.swift */; };
+		7A4DFC04F701F2F6A4A70CDD /* XMLSenderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ED4151ABD49A59586CB00A /* XMLSenderService.swift */; };
+		7BC77718CAFD7BE7886D7017 /* FolderPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08EEC3AFD2B74BB2D683D24 /* FolderPicker.swift */; };
+		AF3E5B62F94ACFDD1294E98A /* SAPDownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55970627AABBEABCA8CB68F0 /* SAPDownloadService.swift */; };
+		C7693DA6D1863F3CEFD49C9F /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A145E671CCC17DEDD740041 /* SettingsStore.swift */; };
+		C9DB5F2BE2B6067315413180 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84AE08109695FD6FA9F3BFD /* AppViewModel.swift */; };
+		FD878F89876F719EBD737C76 /* SOAPEnvelopeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B348108902D6BBAA989247 /* SOAPEnvelopeBuilder.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		41B348108902D6BBAA989247 /* SOAPEnvelopeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOAPEnvelopeBuilder.swift; sourceTree = "<group>"; };
+		55970627AABBEABCA8CB68F0 /* SAPDownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAPDownloadService.swift; sourceTree = "<group>"; };
+		7DE745872296366628AF1C85 /* AppSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSection.swift; sourceTree = "<group>"; };
+		8F92B53EEFAD6DA8E4E65AD9 /* OperationLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationLog.swift; sourceTree = "<group>"; };
+		9A145E671CCC17DEDD740041 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
+		A08EEC3AFD2B74BB2D683D24 /* FolderPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderPicker.swift; sourceTree = "<group>"; };
+		A26EB14E79E503A159687A4F /* NFeDownloadForMacApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NFeDownloadForMacApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4ED4151ABD49A59586CB00A /* XMLSenderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLSenderService.swift; sourceTree = "<group>"; };
+		C1CB132918FB121D8D8C1B68 /* XMLResponseParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLResponseParser.swift; sourceTree = "<group>"; };
+		D7FC081C81A71F255C9F8900 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D84AE08109695FD6FA9F3BFD /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		DFA4319511407D955C5ACFD2 /* ServiceKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceKind.swift; sourceTree = "<group>"; };
+		E5C94DAE72CCA56DD691A9F0 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		EC3F268BC9EDA67369F1CF8D /* NFeDownloadForMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFeDownloadForMacApp.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		01725AB9E1CDC6FC5FE3FEC5 = {
+			isa = PBXGroup;
+			children = (
+				2A35B6B7DEB8C5876BC3DDF3 /* Sources */,
+				12A932AE02D2300932B3D8F0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		12A932AE02D2300932B3D8F0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A26EB14E79E503A159687A4F /* NFeDownloadForMacApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2A35B6B7DEB8C5876BC3DDF3 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				B2BD98C79A7ED6302709E383 /* NFeDownloadForMacApp */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		76BB9EEC4AF76DF7BD5D4DE0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7DE745872296366628AF1C85 /* AppSection.swift */,
+				E5C94DAE72CCA56DD691A9F0 /* AppSettings.swift */,
+				8F92B53EEFAD6DA8E4E65AD9 /* OperationLog.swift */,
+				DFA4319511407D955C5ACFD2 /* ServiceKind.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		835D3D46A54A0BA338834783 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D7FC081C81A71F255C9F8900 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B2BD98C79A7ED6302709E383 /* NFeDownloadForMacApp */ = {
+			isa = PBXGroup;
+			children = (
+				EC3F268BC9EDA67369F1CF8D /* NFeDownloadForMacApp.swift */,
+				76BB9EEC4AF76DF7BD5D4DE0 /* Models */,
+				C20C9991030789C10506774C /* Services */,
+				FFD374AA76BF1C67E0CC0E83 /* ViewModels */,
+				835D3D46A54A0BA338834783 /* Views */,
+			);
+			path = NFeDownloadForMacApp;
+			sourceTree = "<group>";
+		};
+		C20C9991030789C10506774C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A08EEC3AFD2B74BB2D683D24 /* FolderPicker.swift */,
+				55970627AABBEABCA8CB68F0 /* SAPDownloadService.swift */,
+				9A145E671CCC17DEDD740041 /* SettingsStore.swift */,
+				41B348108902D6BBAA989247 /* SOAPEnvelopeBuilder.swift */,
+				C1CB132918FB121D8D8C1B68 /* XMLResponseParser.swift */,
+				B4ED4151ABD49A59586CB00A /* XMLSenderService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		FFD374AA76BF1C67E0CC0E83 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				D84AE08109695FD6FA9F3BFD /* AppViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		10E8556818F1D6EFCBD21806 /* NFeDownloadForMacApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E30884503340E943AD916E7D /* Build configuration list for PBXNativeTarget "NFeDownloadForMacApp" */;
+			buildPhases = (
+				48CA5224A865ADBB481577ED /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NFeDownloadForMacApp;
+			packageProductDependencies = (
+			);
+			productName = NFeDownloadForMacApp;
+			productReference = A26EB14E79E503A159687A4F /* NFeDownloadForMacApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5F3A53FB4BF9523171D4A132 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					10E8556818F1D6EFCBD21806 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 434575D38A9DEB692ED3D0B0 /* Build configuration list for PBXProject "NFeDownloadForMAC" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 01725AB9E1CDC6FC5FE3FEC5;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 12A932AE02D2300932B3D8F0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				10E8556818F1D6EFCBD21806 /* NFeDownloadForMacApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		48CA5224A865ADBB481577ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				30336D2F3708DE347E728DD9 /* AppSection.swift in Sources */,
+				5A9BE93E9B528E2549153F8C /* AppSettings.swift in Sources */,
+				C9DB5F2BE2B6067315413180 /* AppViewModel.swift in Sources */,
+				3F1C8B384B603F630CC906C8 /* ContentView.swift in Sources */,
+				7BC77718CAFD7BE7886D7017 /* FolderPicker.swift in Sources */,
+				45BE12601C2DB7720373392B /* NFeDownloadForMacApp.swift in Sources */,
+				1162F54B6EAA15CF510D3B79 /* OperationLog.swift in Sources */,
+				AF3E5B62F94ACFDD1294E98A /* SAPDownloadService.swift in Sources */,
+				FD878F89876F719EBD737C76 /* SOAPEnvelopeBuilder.swift in Sources */,
+				3D1372D2A00E8C76986BE247 /* ServiceKind.swift in Sources */,
+				C7693DA6D1863F3CEFD49C9F /* SettingsStore.swift in Sources */,
+				1643147BFDE881A205AA0745 /* XMLResponseParser.swift in Sources */,
+				7A4DFC04F701F2F6A4A70CDD /* XMLSenderService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		286005EF8F22A2D7C3703FEA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_KEY_NSHumanReadableDescription = "App macOS para download e envio de XMLs fiscais.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_MODULE_NAME = NFeDownloadForMacApp;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Release;
+		};
+		2AC275C285697A715AADAE9E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "NFe Download For Mac";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright 2026 Matheus Figueiredo";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matheusmrf.nfedownloadformac;
+				PRODUCT_NAME = NFeDownloadForMacApp;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		92CC37B7688E9C1AD811E073 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "NFe Download For Mac";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright 2026 Matheus Figueiredo";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matheusmrf.nfedownloadformac;
+				PRODUCT_NAME = NFeDownloadForMacApp;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		AFCA61CF71C8FBAF81A72E3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_KEY_NSHumanReadableDescription = "App macOS para download e envio de XMLs fiscais.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_MODULE_NAME = NFeDownloadForMacApp;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		434575D38A9DEB692ED3D0B0 /* Build configuration list for PBXProject "NFeDownloadForMAC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AC275C285697A715AADAE9E /* Debug */,
+				92CC37B7688E9C1AD811E073 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E30884503340E943AD916E7D /* Build configuration list for PBXNativeTarget "NFeDownloadForMacApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AFCA61CF71C8FBAF81A72E3E /* Debug */,
+				286005EF8F22A2D7C3703FEA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5F3A53FB4BF9523171D4A132 /* Project object */;
+}
