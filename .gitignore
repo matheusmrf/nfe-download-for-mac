@@ -1,0 +1,10 @@
+.DS_Store
+.vs/
+bin/
+obj/
+*.user
+*.suo
+
+# Local app configuration
+appsettings.json
+appsettings.Development.json
