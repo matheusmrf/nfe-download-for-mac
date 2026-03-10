@@ -43,7 +43,7 @@ private struct DownloadView: View {
             VStack(alignment: .leading, spacing: 20) {
                 HeroCard(
                     title: "Download de XML por chave",
-                    subtitle: "Agora com edição direta de credenciais e importação de chaves por arquivo ou colagem manual."
+                    subtitle: "Cole ou importe chaves, ajuste credenciais e salve tudo diretamente nesta tela."
                 )
 
                 credentialsCard
@@ -59,24 +59,20 @@ private struct DownloadView: View {
             VStack(alignment: .leading, spacing: 16) {
                 Text("Credenciais do Web Service")
                     .font(.headline)
-                TextField("Usuário", text: Binding(
-                    get: { viewModel.settings.username },
-                    set: { viewModel.updateUsername($0) }
-                ))
-                .textFieldStyle(.roundedBorder)
-
-                SecureField("Senha", text: Binding(
-                    get: { viewModel.settings.password },
-                    set: { viewModel.updatePassword($0) }
-                ))
-                .textFieldStyle(.roundedBorder)
-
-                TextField("Endpoint de download", text: Binding(
-                    get: { viewModel.settings.downloadURL },
-                    set: { viewModel.updateDownloadURL($0) }
-                ), axis: .vertical)
-                .textFieldStyle(.roundedBorder)
-                .lineLimit(2...4)
+                TextField("Usuário", text: Binding(get: { viewModel.usernameInput }, set: { viewModel.usernameInput = $0 }))
+                    .textFieldStyle(.roundedBorder)
+                SecureField("Senha", text: Binding(get: { viewModel.passwordInput }, set: { viewModel.passwordInput = $0 }))
+                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Button("Salvar credenciais") { viewModel.saveCredentials() }
+                        .buttonStyle(.borderedProminent)
+                    Button("Limpar") { viewModel.clearCredentials() }
+                }
+                TextField("Endpoint de download", text: Binding(get: { viewModel.downloadURLInput }, set: { viewModel.downloadURLInput = $0 }), axis: .vertical)
+                    .textFieldStyle(.roundedBorder)
+                    .lineLimit(2...4)
+                Button("Salvar endpoint") { viewModel.saveEndpoints() }
+                    .buttonStyle(.bordered)
             }
         }
     }
@@ -84,24 +80,16 @@ private struct DownloadView: View {
     private var downloadCard: some View {
         card {
             VStack(alignment: .leading, spacing: 16) {
-                LabeledContent("Pasta de saída", value: viewModel.settings.downloadDirectory)
-                    .font(.callout)
+                TextField("Pasta de saída", text: Binding(get: { viewModel.downloadDirectoryInput }, set: { viewModel.downloadDirectoryInput = $0 }))
+                    .textFieldStyle(.roundedBorder)
                 HStack {
-                    Button("Escolher pasta") {
-                        viewModel.pickDownloadDirectory()
-                    }
-                    Button("Importar chaves de arquivo") {
-                        viewModel.importKeysFromFile()
-                    }
-                    Button("Limpar lista") {
-                        viewModel.downloadKeysText = ""
-                    }
+                    Button("Escolher pasta") { viewModel.pickDownloadDirectory() }
+                    Button("Salvar pasta") { viewModel.saveDirectories() }
+                    Button("Importar chaves de arquivo") { viewModel.importKeysFromFile() }
+                    Button("Limpar lista") { viewModel.downloadKeysText = "" }
                     Spacer()
-                    Stepper("Concorrência: \(viewModel.settings.concurrencyLimit)", value: Binding(
-                        get: { viewModel.settings.concurrencyLimit },
-                        set: { viewModel.settings.concurrencyLimit = $0 }
-                    ), in: 1...20)
-                    .frame(width: 220)
+                    Stepper("Concorrência: \(viewModel.settings.concurrencyLimit)", value: Binding(get: { viewModel.settings.concurrencyLimit }, set: { viewModel.settings.concurrencyLimit = $0 }), in: 1...20)
+                        .frame(width: 220)
                 }
                 Text("Chaves de acesso")
                     .font(.headline)
@@ -114,7 +102,7 @@ private struct DownloadView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
 
                     if viewModel.downloadKeysText.isEmpty {
-                        Text("Cole uma chave por linha ou importe um .txt/.csv")
+                        Text("Cole uma chave por linha ou importe um arquivo .txt/.csv")
                             .foregroundStyle(.tertiary)
                             .padding(.top, 18)
                             .padding(.leading, 16)
@@ -129,8 +117,7 @@ private struct DownloadView: View {
                         Task { await viewModel.downloadAll() }
                     } label: {
                         if viewModel.isDownloading {
-                            ProgressView()
-                                .controlSize(.small)
+                            ProgressView().controlSize(.small)
                         }
                         Text(viewModel.isDownloading ? "Baixando..." : "Baixar XMLs")
                     }
@@ -150,7 +137,7 @@ private struct SendView: View {
             VStack(alignment: .leading, spacing: 20) {
                 HeroCard(
                     title: "Envio de XML para SAP",
-                    subtitle: "A pasta selecionada é lida automaticamente e os XMLs encontrados aparecem listados abaixo."
+                    subtitle: "Selecione a pasta, revise os XMLs encontrados e envie para NF-e ou CT-e."
                 )
 
                 credentialsCard
@@ -167,17 +154,15 @@ private struct SendView: View {
             VStack(alignment: .leading, spacing: 16) {
                 Text("Credenciais do Web Service")
                     .font(.headline)
-                TextField("Usuário", text: Binding(
-                    get: { viewModel.settings.username },
-                    set: { viewModel.updateUsername($0) }
-                ))
-                .textFieldStyle(.roundedBorder)
-
-                SecureField("Senha", text: Binding(
-                    get: { viewModel.settings.password },
-                    set: { viewModel.updatePassword($0) }
-                ))
-                .textFieldStyle(.roundedBorder)
+                TextField("Usuário", text: Binding(get: { viewModel.usernameInput }, set: { viewModel.usernameInput = $0 }))
+                    .textFieldStyle(.roundedBorder)
+                SecureField("Senha", text: Binding(get: { viewModel.passwordInput }, set: { viewModel.passwordInput = $0 }))
+                    .textFieldStyle(.roundedBorder)
+                HStack {
+                    Button("Salvar credenciais") { viewModel.saveCredentials() }
+                        .buttonStyle(.borderedProminent)
+                    Button("Limpar") { viewModel.clearCredentials() }
+                }
             }
         }
     }
@@ -192,40 +177,40 @@ private struct SendView: View {
                 }
                 .pickerStyle(.segmented)
 
-                LabeledContent("Pasta de leitura", value: viewModel.settings.sendDirectory)
-                    .font(.callout)
+                TextField("Pasta de leitura", text: Binding(get: { viewModel.sendDirectoryInput }, set: { viewModel.sendDirectoryInput = $0 }))
+                    .textFieldStyle(.roundedBorder)
 
-                TextField(viewModel.selectedServiceKind.endpointTitle, text: Binding(
-                    get: {
-                        viewModel.selectedServiceKind == .nfe ? viewModel.settings.nfeSendURL : viewModel.settings.cteSendURL
-                    },
-                    set: {
-                        if viewModel.selectedServiceKind == .nfe {
-                            viewModel.updateNFESendURL($0)
-                        } else {
-                            viewModel.updateCTESendURL($0)
+                TextField(
+                    viewModel.selectedServiceKind.endpointTitle,
+                    text: Binding(
+                        get: { viewModel.selectedServiceKind == .nfe ? viewModel.nfeSendURLInput : viewModel.cteSendURLInput },
+                        set: {
+                            if viewModel.selectedServiceKind == .nfe {
+                                viewModel.nfeSendURLInput = $0
+                            } else {
+                                viewModel.cteSendURLInput = $0
+                            }
                         }
-                    }
-                ), axis: .vertical)
+                    ),
+                    axis: .vertical
+                )
                 .textFieldStyle(.roundedBorder)
                 .lineLimit(2...4)
 
-                Toggle("Apagar arquivos após envio com sucesso", isOn: Binding(
-                    get: { viewModel.settings.deleteSentFiles },
-                    set: { viewModel.settings.deleteSentFiles = $0 }
-                ))
+                Toggle("Apagar arquivos após envio com sucesso", isOn: Binding(get: { viewModel.settings.deleteSentFiles }, set: { viewModel.settings.deleteSentFiles = $0 }))
 
                 HStack {
-                    Button("Escolher pasta") {
-                        viewModel.pickSendDirectory()
+                    Button("Escolher pasta") { viewModel.pickSendDirectory() }
+                    Button("Salvar configurações") {
+                        viewModel.saveDirectories()
+                        viewModel.saveEndpoints()
                     }
                     Spacer()
                     Button {
                         Task { await viewModel.sendAll() }
                     } label: {
                         if viewModel.isSending {
-                            ProgressView()
-                                .controlSize(.small)
+                            ProgressView().controlSize(.small)
                         }
                         Text(viewModel.isSending ? "Enviando..." : "Enviar XMLs")
                     }
@@ -273,23 +258,22 @@ struct SettingsView: View {
             VStack(alignment: .leading, spacing: 20) {
                 HeroCard(
                     title: "Configurações",
-                    subtitle: "Ajuste credenciais, endpoints e pastas padrão. As configurações são salvas automaticamente neste Mac."
+                    subtitle: "Tela complementar para revisar tudo com calma."
                 )
 
                 card {
                     VStack(alignment: .leading, spacing: 16) {
                         Text("Credenciais")
                             .font(.headline)
-                        TextField("Usuário", text: Binding(
-                            get: { viewModel.settings.username },
-                            set: { viewModel.updateUsername($0) }
-                        ))
-                        .textFieldStyle(.roundedBorder)
-                        SecureField("Senha", text: Binding(
-                            get: { viewModel.settings.password },
-                            set: { viewModel.updatePassword($0) }
-                        ))
-                        .textFieldStyle(.roundedBorder)
+                        TextField("Usuário", text: Binding(get: { viewModel.usernameInput }, set: { viewModel.usernameInput = $0 }))
+                            .textFieldStyle(.roundedBorder)
+                        SecureField("Senha", text: Binding(get: { viewModel.passwordInput }, set: { viewModel.passwordInput = $0 }))
+                            .textFieldStyle(.roundedBorder)
+                        HStack {
+                            Button("Salvar credenciais") { viewModel.saveCredentials() }
+                                .buttonStyle(.borderedProminent)
+                            Button("Limpar") { viewModel.clearCredentials() }
+                        }
                     }
                 }
 
@@ -297,47 +281,36 @@ struct SettingsView: View {
                     VStack(alignment: .leading, spacing: 16) {
                         Text("Endpoints")
                             .font(.headline)
-                        TextField("Download XML", text: Binding(
-                            get: { viewModel.settings.downloadURL },
-                            set: { viewModel.updateDownloadURL($0) }
-                        ), axis: .vertical)
-                        .textFieldStyle(.roundedBorder)
-                        .lineLimit(2...4)
-                        TextField("Envio NF-e", text: Binding(
-                            get: { viewModel.settings.nfeSendURL },
-                            set: { viewModel.updateNFESendURL($0) }
-                        ), axis: .vertical)
-                        .textFieldStyle(.roundedBorder)
-                        .lineLimit(2...4)
-                        TextField("Envio CT-e", text: Binding(
-                            get: { viewModel.settings.cteSendURL },
-                            set: { viewModel.updateCTESendURL($0) }
-                        ), axis: .vertical)
-                        .textFieldStyle(.roundedBorder)
-                        .lineLimit(2...4)
+                        TextField("Download XML", text: Binding(get: { viewModel.downloadURLInput }, set: { viewModel.downloadURLInput = $0 }), axis: .vertical)
+                            .textFieldStyle(.roundedBorder)
+                            .lineLimit(2...4)
+                        TextField("Envio NF-e", text: Binding(get: { viewModel.nfeSendURLInput }, set: { viewModel.nfeSendURLInput = $0 }), axis: .vertical)
+                            .textFieldStyle(.roundedBorder)
+                            .lineLimit(2...4)
+                        TextField("Envio CT-e", text: Binding(get: { viewModel.cteSendURLInput }, set: { viewModel.cteSendURLInput = $0 }), axis: .vertical)
+                            .textFieldStyle(.roundedBorder)
+                            .lineLimit(2...4)
+                        Button("Salvar endpoints") { viewModel.saveEndpoints() }
+                            .buttonStyle(.borderedProminent)
                     }
                 }
 
                 card {
                     VStack(alignment: .leading, spacing: 16) {
-                        Text("Pastas padrão")
+                        Text("Pastas")
                             .font(.headline)
                         HStack {
-                            TextField("Pasta de download", text: Binding(
-                                get: { viewModel.settings.downloadDirectory },
-                                set: { viewModel.updateDownloadDirectory($0) }
-                            ))
-                            .textFieldStyle(.roundedBorder)
+                            TextField("Pasta de download", text: Binding(get: { viewModel.downloadDirectoryInput }, set: { viewModel.downloadDirectoryInput = $0 }))
+                                .textFieldStyle(.roundedBorder)
                             Button("Escolher") { viewModel.pickDownloadDirectory() }
                         }
                         HStack {
-                            TextField("Pasta de envio", text: Binding(
-                                get: { viewModel.settings.sendDirectory },
-                                set: { viewModel.updateSendDirectory($0) }
-                            ))
-                            .textFieldStyle(.roundedBorder)
+                            TextField("Pasta de envio", text: Binding(get: { viewModel.sendDirectoryInput }, set: { viewModel.sendDirectoryInput = $0 }))
+                                .textFieldStyle(.roundedBorder)
                             Button("Escolher") { viewModel.pickSendDirectory() }
                         }
+                        Button("Salvar pastas") { viewModel.saveDirectories() }
+                            .buttonStyle(.borderedProminent)
                     }
                 }
             }
@@ -388,14 +361,10 @@ private struct StatusAndLogsView: View {
 
     private func color(for level: OperationLog.Level) -> Color {
         switch level {
-        case .info:
-            return .blue
-        case .success:
-            return .green
-        case .warning:
-            return .orange
-        case .error:
-            return .red
+        case .info: .blue
+        case .success: .green
+        case .warning: .orange
+        case .error: .red
         }
     }
 }

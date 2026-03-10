@@ -13,11 +13,20 @@ final class AppViewModel {
     var isSending = false
     var lastSummary = "Configure os campos e execute uma operação."
 
+    var usernameInput = ""
+    var passwordInput = ""
+    var downloadURLInput = ""
+    var nfeSendURLInput = ""
+    var cteSendURLInput = ""
+    var downloadDirectoryInput = ""
+    var sendDirectoryInput = ""
+
     private let downloadService = SAPDownloadService()
     private let senderService = XMLSenderService()
 
     init(settingsStore: SettingsStore = SettingsStore()) {
         self.settingsStore = settingsStore
+        loadInputsFromSettings()
     }
 
     var settings: AppSettings {
@@ -33,7 +42,7 @@ final class AppViewModel {
     }
 
     var sendDirectoryURL: URL {
-        URL(fileURLWithPath: settings.sendDirectory, isDirectory: true)
+        URL(fileURLWithPath: sendDirectoryInput, isDirectory: true)
     }
 
     var sendableXMLFiles: [URL] {
@@ -46,46 +55,63 @@ final class AppViewModel {
             .sorted { $0.lastPathComponent.localizedCaseInsensitiveCompare($1.lastPathComponent) == .orderedAscending } ?? []
     }
 
+    func loadInputsFromSettings() {
+        let current = settingsStore.settings
+        usernameInput = current.username
+        passwordInput = current.password
+        downloadURLInput = current.downloadURL
+        nfeSendURLInput = current.nfeSendURL
+        cteSendURLInput = current.cteSendURL
+        downloadDirectoryInput = current.downloadDirectory
+        sendDirectoryInput = current.sendDirectory
+    }
+
+    func persistInputs() {
+        settingsStore.settings.username = usernameInput
+        settingsStore.settings.password = passwordInput
+        settingsStore.settings.downloadURL = downloadURLInput
+        settingsStore.settings.nfeSendURL = nfeSendURLInput
+        settingsStore.settings.cteSendURL = cteSendURLInput
+        settingsStore.settings.downloadDirectory = downloadDirectoryInput
+        settingsStore.settings.sendDirectory = sendDirectoryInput
+    }
+
+    func clearCredentials() {
+        usernameInput = ""
+        passwordInput = ""
+        persistInputs()
+        appendLog("Credenciais limpas.", level: .success)
+    }
+
+    func saveCredentials() {
+        persistInputs()
+        appendLog("Credenciais salvas.", level: .success)
+    }
+
+    func saveEndpoints() {
+        persistInputs()
+        appendLog("Endpoints salvos.", level: .success)
+    }
+
+    func saveDirectories() {
+        persistInputs()
+        appendLog("Pastas salvas.", level: .success)
+    }
+
     func pickDownloadDirectory() {
-        if let path = FolderPicker.pickDirectory(startingAt: settings.downloadDirectory) {
-            settings.downloadDirectory = path
+        if let path = FolderPicker.pickDirectory(startingAt: downloadDirectoryInput) {
+            downloadDirectoryInput = path
+            persistInputs()
             appendLog("Pasta de download definida para \(path)", level: .info)
         }
     }
 
     func pickSendDirectory() {
-        if let path = FolderPicker.pickDirectory(startingAt: settings.sendDirectory) {
-            settings.sendDirectory = path
+        if let path = FolderPicker.pickDirectory(startingAt: sendDirectoryInput) {
+            sendDirectoryInput = path
+            persistInputs()
             appendLog("Pasta de envio definida para \(path)", level: .info)
         }
-    }
-
-    func updateUsername(_ value: String) {
-        settings.username = value
-    }
-
-    func updatePassword(_ value: String) {
-        settings.password = value
-    }
-
-    func updateDownloadURL(_ value: String) {
-        settings.downloadURL = value
-    }
-
-    func updateNFESendURL(_ value: String) {
-        settings.nfeSendURL = value
-    }
-
-    func updateCTESendURL(_ value: String) {
-        settings.cteSendURL = value
-    }
-
-    func updateDownloadDirectory(_ value: String) {
-        settings.downloadDirectory = value
-    }
-
-    func updateSendDirectory(_ value: String) {
-        settings.sendDirectory = value
     }
 
     func appendDownloadKeys(from content: String) {
@@ -121,13 +147,14 @@ final class AppViewModel {
     }
 
     func downloadAll() async {
+        persistInputs()
         let keys = parsedKeys
         guard !keys.isEmpty else {
             appendLog("Informe ao menos uma chave para iniciar o download.", level: .warning)
             return
         }
 
-        let outputDirectory = URL(fileURLWithPath: settings.downloadDirectory, isDirectory: true)
+        let outputDirectory = URL(fileURLWithPath: downloadDirectoryInput, isDirectory: true)
         do {
             try FileManager.default.createDirectory(at: outputDirectory, withIntermediateDirectories: true)
         } catch {
@@ -141,7 +168,7 @@ final class AppViewModel {
 
         let semaphore = AsyncSemaphore(limit: max(1, settings.concurrencyLimit))
         let stats = DownloadStats()
-        let currentSettings = settings
+        let currentSettings = settingsStore.settings
         let service = downloadService
 
         await withTaskGroup(of: Void.self) { group in
@@ -176,6 +203,7 @@ final class AppViewModel {
     }
 
     func sendAll() async {
+        persistInputs()
         let xmlFiles = sendableXMLFiles
         let fileManager = FileManager.default
 
@@ -193,8 +221,8 @@ final class AppViewModel {
 
         for fileURL in xmlFiles {
             do {
-                try await senderService.sendXML(at: fileURL, kind: selectedServiceKind, settings: settings)
-                if settings.deleteSentFiles {
+                try await senderService.sendXML(at: fileURL, kind: selectedServiceKind, settings: settingsStore.settings)
+                if settingsStore.settings.deleteSentFiles {
                     try? fileManager.removeItem(at: fileURL)
                 }
                 successCount += 1

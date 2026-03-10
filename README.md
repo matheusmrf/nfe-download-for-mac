@@ -1,91 +1,65 @@
 # NFeDownloadForMAC
 
-Aplicação macOS nativa em SwiftUI para substituir o utilitário legado `DownloadNFeArcelormittal` em Windows Forms. O app oferece duas operações principais:
+Aplicação macOS nativa em SwiftUI para substituir o utilitário legado `DownloadNFeArcelormittal` em Windows Forms.
+
+## O que o app faz
 
 - download de XML por chave de acesso via serviço SAP
 - envio de XMLs locais para endpoints SAP de NF-e ou CT-e
+- edição e persistência local de credenciais, endpoints e pastas
+- seleção de pasta via interface nativa do macOS
+- geração de `.app` por Xcode ou script local
 
-## O que foi feito
+## Abrir no Xcode
 
-A pasta agora contém uma implementação nova em Swift, pensada para macOS:
+Abra:
 
-- interface SwiftUI com visual nativo do macOS
-- persistência automática de configurações no `Application Support`
-- seleção de pastas por `NSOpenPanel`
-- execução assíncrona com concorrência controlada no download
-- logs de execução na própria interface
-- suporte a envio para NF-e e CT-e
+- `NFeDownloadForMAC.xcodeproj`
 
-## Estrutura nova
+ou, se preferir, o `Package.swift`.
 
-```text
-NFeDownloadForMAC/
-├── Package.swift
-├── README.md
-├── Sources/
-│   └── NFeDownloadForMacApp/
-│       ├── NFeDownloadForMacApp.swift
-│       ├── Models/
-│       ├── Services/
-│       ├── ViewModels/
-│       └── Views/
-└── NFeDownloaderForMacOS/   # projeto antigo em C#, mantido como referência
-```
+## Gerar `.app`
 
-## Requisitos
+### Pelo Xcode
 
-- macOS 14 ou superior
-- Swift 6
-- Xcode para abrir a interface visualmente
+1. Abra `NFeDownloadForMAC.xcodeproj`
+2. Selecione o scheme `NFeDownloadForMacApp`
+3. `Product > Run` para testar
+4. `Product > Archive` para empacotar
 
-## Como abrir no Xcode
-
-1. Abra o Xcode.
-2. Escolha `Open...`.
-3. Selecione a pasta `NFeDownloadForMAC` ou o arquivo `Package.swift`.
-4. Rode o target `NFeDownloadForMacApp`.
-
-## Como compilar no terminal
+### Pelo script
 
 ```bash
 cd /Users/matheusfigueiredo/Documents/Arcelormittal/Desenvolvimentos/NFeDownloadForMAC
-swift build
-swift run
+./scripts/build_app.sh
 ```
 
-## Configuração inicial
+O app final será copiado para:
 
-Na aba `Configurações`, ajuste:
+```text
+dist/NFeDownloadForMacApp.app
+```
 
-- usuário
-- senha
-- endpoint de download
-- endpoint de envio NF-e
-- endpoint de envio CT-e
-- pasta padrão de download
-- pasta padrão de envio
-
-Os valores atuais foram trazidos do utilitário original em C# como ponto de partida.
-
-## Fluxos disponíveis
+## Fluxo de uso
 
 ### Download
 
-- cole as chaves de acesso no editor de texto
+- edite usuário e senha direto na tela
+- salve as credenciais
+- cole as chaves ou importe um `.txt/.csv`
 - escolha a pasta de saída
-- ajuste o nível de concorrência
 - clique em `Baixar XMLs`
 
 ### Envio
 
+- edite usuário e senha direto na tela
 - escolha a pasta com XMLs
 - selecione `NF-e` ou `CT-e`
+- confira a lista de XMLs encontrados
 - clique em `Enviar XMLs`
-- opcionalmente, apague arquivos após sucesso
 
-## Observações importantes
+## Observações
 
-- o app depende do acesso de rede aos endpoints SAP internos
-- os endpoints atuais usam HTTP e autenticação básica, conforme o sistema legado
-- se o Web Service devolver um formato SOAP diferente do esperado, a extração do `EV_STRING` pode precisar de ajuste fino
-- o projeto antigo em C# foi mantido na pasta apenas como referência funcional
+- os valores padrão de endpoints vieram do sistema legado em C#
+- a pasta `NFeDownloaderForMacOS/` foi mantida como referência histórica
+- a interface agora usa campos locais com botão de salvar, para evitar o problema de edição/reset durante digitação

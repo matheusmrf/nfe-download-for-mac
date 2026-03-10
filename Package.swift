@@ -15,7 +15,10 @@ let package = Package(
     targets: [
         .executableTarget(
             name: "NFeDownloadForMacApp",
-            path: "Sources/NFeDownloadForMacApp"
+            path: "Sources/NFeDownloadForMacApp",
+            resources: [
+                .copy("Resources")
+            ]
         )
     ]
 )

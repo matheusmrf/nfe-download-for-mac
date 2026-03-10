@@ -13,5 +13,7 @@ appsettings.Development.json
 .build/
 .swiftpm/
 DerivedData/
+.derived-data/
 *.xcodeproj/project.xcworkspace/xcuserdata/
 *.xcworkspace/xcuserdata/
+dist/

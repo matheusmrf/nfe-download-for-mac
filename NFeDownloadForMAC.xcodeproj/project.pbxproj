@@ -16,6 +16,7 @@
 		5A9BE93E9B528E2549153F8C /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C94DAE72CCA56DD691A9F0 /* AppSettings.swift */; };
 		7A4DFC04F701F2F6A4A70CDD /* XMLSenderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ED4151ABD49A59586CB00A /* XMLSenderService.swift */; };
 		7BC77718CAFD7BE7886D7017 /* FolderPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08EEC3AFD2B74BB2D683D24 /* FolderPicker.swift */; };
+		8935925A0B9B6C61E35D1988 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2BABD45AB6D8A5B7A973D82 /* Assets.xcassets */; };
 		AF3E5B62F94ACFDD1294E98A /* SAPDownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55970627AABBEABCA8CB68F0 /* SAPDownloadService.swift */; };
 		C7693DA6D1863F3CEFD49C9F /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A145E671CCC17DEDD740041 /* SettingsStore.swift */; };
 		C9DB5F2BE2B6067315413180 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84AE08109695FD6FA9F3BFD /* AppViewModel.swift */; };
@@ -37,6 +38,7 @@
 		DFA4319511407D955C5ACFD2 /* ServiceKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceKind.swift; sourceTree = "<group>"; };
 		E5C94DAE72CCA56DD691A9F0 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		EC3F268BC9EDA67369F1CF8D /* NFeDownloadForMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFeDownloadForMacApp.swift; sourceTree = "<group>"; };
+		F2BABD45AB6D8A5B7A973D82 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -88,6 +90,7 @@
 			children = (
 				EC3F268BC9EDA67369F1CF8D /* NFeDownloadForMacApp.swift */,
 				76BB9EEC4AF76DF7BD5D4DE0 /* Models */,
+				F4AFDB44BFD0142626229B5F /* Resources */,
 				C20C9991030789C10506774C /* Services */,
 				FFD374AA76BF1C67E0CC0E83 /* ViewModels */,
 				835D3D46A54A0BA338834783 /* Views */,
@@ -108,6 +111,14 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		F4AFDB44BFD0142626229B5F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F2BABD45AB6D8A5B7A973D82 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		FFD374AA76BF1C67E0CC0E83 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +135,7 @@
 			buildConfigurationList = E30884503340E943AD916E7D /* Build configuration list for PBXNativeTarget "NFeDownloadForMacApp" */;
 			buildPhases = (
 				48CA5224A865ADBB481577ED /* Sources */,
+				17EC0621238114F2AD7380A6 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -169,6 +181,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		17EC0621238114F2AD7380A6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8935925A0B9B6C61E35D1988 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		48CA5224A865ADBB481577ED /* Sources */ = {
