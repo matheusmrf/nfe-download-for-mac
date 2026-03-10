@@ -1,77 +1,91 @@
 # NFeDownloadForMAC
 
-Repositório em estágio inicial para uma versão .NET do utilitário de download de NFe voltada a macOS. No estado atual, o projeto está mais próximo de um esqueleto/template do que de uma aplicação funcional completa.
+Aplicação macOS nativa em SwiftUI para substituir o utilitário legado `DownloadNFeArcelormittal` em Windows Forms. O app oferece duas operações principais:
 
-## Situação atual do projeto
+- download de XML por chave de acesso via serviço SAP
+- envio de XMLs locais para endpoints SAP de NF-e ou CT-e
 
-A análise do código mostra que o repositório contém:
+## O que foi feito
 
-- um projeto `net9.0` usando `Microsoft.NET.Sdk.Web`
-- um `Program.cs` mínimo com endpoint `Hello World`
-- vários arquivos herdados de uma possível versão anterior (`Form1.cs`, `ThreadsUtil.cs`, proxies de serviço), mas atualmente vazios
-- arquivos `appsettings.json` e `launchSettings.json` padrão
+A pasta agora contém uma implementação nova em Swift, pensada para macOS:
 
-Em resumo: o nome do projeto indica uma ferramenta de download de NFe para Mac, mas o código versionado hoje ainda não implementa essa funcionalidade.
+- interface SwiftUI com visual nativo do macOS
+- persistência automática de configurações no `Application Support`
+- seleção de pastas por `NSOpenPanel`
+- execução assíncrona com concorrência controlada no download
+- logs de execução na própria interface
+- suporte a envio para NF-e e CT-e
 
-## Estrutura
+## Estrutura nova
 
 ```text
 NFeDownloadForMAC/
+├── Package.swift
 ├── README.md
-├── NFeDownloadForMAC.sln
-└── NFeDownloaderForMacOS/
-    ├── Program.cs
-    ├── NFeDownloaderForMacOS.csproj
-    ├── appsettings.json
-    ├── appsettings.Development.json
-    ├── Properties/
-    │   └── launchSettings.json
-    ├── Form1.cs                          # vazio
-    ├── Form1Designer.cs                  # vazio
-    ├── ThreadsUtil.cs                    # vazio
-    ├── NFE_FB2B_OBService.cs             # vazio
-    └── MI_LCORPNF00001_DownloadXML_OUTIN_NFE_Out_SynCompleted.cs  # vazio
+├── Sources/
+│   └── NFeDownloadForMacApp/
+│       ├── NFeDownloadForMacApp.swift
+│       ├── Models/
+│       ├── Services/
+│       ├── ViewModels/
+│       └── Views/
+└── NFeDownloaderForMacOS/   # projeto antigo em C#, mantido como referência
 ```
 
-## Stack atual
+## Requisitos
 
-- .NET 9
-- ASP.NET Core minimal API
+- macOS 14 ou superior
+- Swift 6
+- Xcode para abrir a interface visualmente
 
-## Como executar o estado atual
+## Como abrir no Xcode
+
+1. Abra o Xcode.
+2. Escolha `Open...`.
+3. Selecione a pasta `NFeDownloadForMAC` ou o arquivo `Package.swift`.
+4. Rode o target `NFeDownloadForMacApp`.
+
+## Como compilar no terminal
 
 ```bash
-cd NFeDownloaderForMacOS
-dotnet restore
-dotnet run
+cd /Users/matheusfigueiredo/Documents/Arcelormittal/Desenvolvimentos/NFeDownloadForMAC
+swift build
+swift run
 ```
 
-Resultado esperado:
+## Configuração inicial
 
-- a aplicação sobe um servidor web local
-- o endpoint raiz `/` retorna `Hello World!`
+Na aba `Configurações`, ajuste:
 
-## Pré-requisitos
+- usuário
+- senha
+- endpoint de download
+- endpoint de envio NF-e
+- endpoint de envio CT-e
+- pasta padrão de download
+- pasta padrão de envio
 
-- .NET SDK 9.0
-- macOS, Linux ou Windows para rodar o template atual
+Os valores atuais foram trazidos do utilitário original em C# como ponto de partida.
 
-## O que falta para virar a ferramenta prometida
+## Fluxos disponíveis
 
-- implementação da lógica de download de NFe
-- integração com Web Service ou API de origem
-- interface de usuário real
-- configuração de credenciais e endpoints
-- persistência de arquivos baixados
-- tratamento de erros e logs
+### Download
 
-## Interpretação provável
+- cole as chaves de acesso no editor de texto
+- escolha a pasta de saída
+- ajuste o nível de concorrência
+- clique em `Baixar XMLs`
 
-Este repositório parece ser uma tentativa de migração ou recomeço do utilitário de download em uma stack mais nova, sem conclusão até o momento.
+### Envio
 
-## Próximos passos recomendados
+- escolha a pasta com XMLs
+- selecione `NF-e` ou `CT-e`
+- clique em `Enviar XMLs`
+- opcionalmente, apague arquivos após sucesso
 
-- decidir se o projeto será web, desktop ou CLI
-- reaproveitar a lógica do projeto `DownloadNFeArcelormittal` se for o mesmo caso de uso
-- remover arquivos vazios ou substituí-los por implementação real
-- documentar a arquitetura alvo antes de continuar o desenvolvimento
+## Observações importantes
+
+- o app depende do acesso de rede aos endpoints SAP internos
+- os endpoints atuais usam HTTP e autenticação básica, conforme o sistema legado
+- se o Web Service devolver um formato SOAP diferente do esperado, a extração do `EV_STRING` pode precisar de ajuste fino
+- o projeto antigo em C# foi mantido na pasta apenas como referência funcional

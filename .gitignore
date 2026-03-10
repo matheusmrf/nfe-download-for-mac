@@ -8,3 +8,10 @@ obj/
 # Local app configuration
 appsettings.json
 appsettings.Development.json
+
+# Swift Package / Xcode
+.build/
+.swiftpm/
+DerivedData/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcworkspace/xcuserdata/
